@@ -1,6 +1,7 @@
 from kandinsky import *
 from ion import *
 from time import *
+import os
 
 # Version : v1.0
 
@@ -134,9 +135,14 @@ def set_today(day, mounth, year):
 
 
 def get_today():
-  with open("calandar_today.txt", "r") as f:
-    day, mounth, year = f.read().split()
+  if "calendar_today.txt" in os.listdir():
+    with open("calendar_today.txt", "r") as f:
+      day, mounth, year = f.read().split()
     return (int(day), int(mounth), int(year))
+
+  else:
+    day, mounth, year = get_input(10, 10, "Today: (da/mo/year) ").split("/")
+    set_today(day, mounth, year)
 
 
 def start():
