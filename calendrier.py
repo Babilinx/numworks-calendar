@@ -61,9 +61,18 @@ def draw_mounth(mounth,years,selected=0):
     draw_day(i+1,mounth,years,(i+1)==selected)
 
 
+def set_today(day, mounth, year):
+  with open("calendar_today.txt", "w") as f:
+    f.write("{} {} {}".format(day, mounth, year)
+
+
+def get_today():
+  with open("calandar_today.txt", "r") as f:
+    day, mounth, year = f.read().split()
+    return (int(day), int(mounth), int(year))
+
 def start():
-  selected=1
-  mounth,years=9,2023
+  selected, mounth, years = get_today()
   draw_mounth(mounth,years,selected)
   while not keydown(KEY_EXE):
     while not (keydown(KEY_RIGHT) or keydown(KEY_LEFT) or keydown(KEY_UP) or keydown(KEY_DOWN) or keydown(KEY_EXE)):
