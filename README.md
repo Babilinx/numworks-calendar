@@ -7,7 +7,7 @@ Actual version : 1.0
 **Only works on Upsilon/Omega !**
 
 # Goals
-- [ ] Make the script remember the current day.
+- [x] Make the script remember the current day.
 - [ ] Make the color of remiders changable.
 - [ ] Possibility to add vacations.
 - [ ] Possibility to add remiders
