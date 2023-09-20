@@ -12,6 +12,70 @@ drawed = False
 
 mounth_names = [None, "Janvier", "Fe"+chr(769)+"vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aou"+chr(770)+"t", "Septembre", "Octobre", "Novembre", "De"+chr(769)+"cembre"]
 
+def get_input(x,y,text=):
+  etat=""
+  select = 0
+  l = range(14,52)
+  normal=[
+  "","","x","","","",
+  "exp()","log()","log10()","1j",",","**",
+  "sin()","cos()","tan()","pi","**0.5","**2",
+  "7","8","9","(",")","",
+  "4","5","6","*","/","",
+  "1","2","3","+","-","",
+  "0",".","e","","",""
+  ]
+  normal_up = [
+  "","","","","","",
+  "[","]","{","}","_","",
+  "asin()","acos()","atan()","=","<",">",
+  "","","","","","",
+  "","","","","","",
+  "","","","","","",
+  "","","","","",""
+  ]
+  alpha = [
+  "","",":",";","\"","%",
+  "a","b","c","d","e","f",
+  "g","h","i","j","k","l",
+  "m","n","o","p","q","",
+  "r","s","t","u","v","",
+  "w","x","y","z"," ","", 
+  "?","!","","",""]
+  alpha_up = [
+  "","",":",";","\"","%",
+  "A","B","C","D","E","F",
+  "G","H","I","J","K","L",
+  "M","N","O","P","Q","",
+  "R","S","T","U","V","",
+  "W","X","Y","Z"," ","", 
+  "?","!","","",""]
+  while True:
+    for i in l:
+      if keydown(i):
+        liste = {"":normal, "s":normal_up, "a":alpha, "A":alpha_up}[etat]
+        text = text[:select]+liste[i-12]+text[select:]
+        select += len(liste[i-12])
+    if keydown(KEY_ALPHA):
+      etat={"":"a", "s":"A", "a":"", "A":"s"}[etat]
+    if keydown(KEY_SHIFT):
+      etat={"":"s", "s":"", "a":"A", "A":"a"}[etat]
+
+    if keydown(KEY_EXE):
+      break
+    if keydown(KEY_BACKSPACE) and not (etat == "a" or etat == "A"):
+      text = text[:select-1]+text[select:]
+      select += -1
+
+    select += keydown(3)-keydown(0)
+    select %= len(text)+1
+
+    draw_string(text+"    ",x+10, y, C2, BG)
+    draw_string({"":" ", "s":"s", "a":"a", "A":"A"}[etat], x, y)
+    fill_rect(x+10+select*10, y, 1, 16, (0, 0, 0))
+    sleep(0.1)
+  return text
+
 def get_week_day(day,mounth,years):
   c = (14-mounth)//12
   a = years-c
