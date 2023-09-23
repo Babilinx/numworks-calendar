@@ -58,7 +58,7 @@ def draw_day(day, mounth, years, selected=False):
 
 
 def draw_mounth(mounth, years, selected=0):
-  fill_rect(0, 0, 320, 222, color_palette['HomeBackgroud'])
+  fill_rect(0, 0, 320, 222, color_palette['HomeBackground'])
   draw_string("{:^20}".format(mounth_names[mounth]+" "+str(years)), 60, 0, color_palette['PrimaryText'], color_palette['HomeBackground'])
   for i in range(8):
     fill_rect(40+i*33, 20, 3, 175, color_palette['PrimaryText'])
