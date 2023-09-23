@@ -65,7 +65,7 @@ def draw_mounth(mounth, years, selected=0):
 
 
 def get_today():
-    year, mounth, day = localtime()
+    year, mounth, day, hour, minutes, seconds, a, b = localtime()
     return (int(day), int(mounth), int(year))
 
 
