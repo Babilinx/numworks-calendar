@@ -76,7 +76,7 @@ def get_today():
 def start():
   selected, mounth, years = get_today()
   draw_mounth(mounth, years, selected)
-  while not keydown(KEY_EXE):
+  while not keydown(KEY_ONOFF):
     while not (keydown(KEY_RIGHT) or keydown(KEY_LEFT) or keydown(KEY_UP) or keydown(KEY_DOWN) or keydown(KEY_EXE) or keydown(KEY_HOME)):
       pass
 
