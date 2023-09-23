@@ -31,7 +31,7 @@ def draw_day(day, mounth, years, selected=False):
   global drawed
 
   if drawed and selected:
-    fill_rect(0, 195, 320, 27, color_palette['HomeBackgroud'])
+    fill_rect(0, 195, 320, 27, color_palette['HomeBackground'])
     drawed = False
 
   important = False
@@ -40,7 +40,7 @@ def draw_day(day, mounth, years, selected=False):
     if (l_event[0] in [str(day),"{:0>2}".format(str(day)),"**"]) and (l_event[1] in [str(mounth),"{:0>2}".format(str(mounth)),"**"]) and (l_event[2] in [str(years),"****"]):
       important = True
       if selected:
-        draw_string(event[0], 20, 198, color_palette['AccentText'], color_palette['HomeBackgroud'])
+        draw_string(event[0], 20, 198, color_palette['AccentText'], color_palette['HomeBackground'])
         drawed = True
 
   wd = get_week_day(day, mounth, years)
@@ -48,22 +48,22 @@ def draw_day(day, mounth, years, selected=False):
   y = 65+(day-wd-2)//7*25
   if selected:
     fill_rect(x, y, 30, 25, color_palette['AccentText'])
-    fill_rect(x+2, y+2, 26, 21, color_palette['HomeBackgroud'])
+    fill_rect(x+2, y+2, 26, 21, color_palette['HomeBackground'])
   else:
-    fill_rect(x, y, 30, 25, color_palette['HomeBackgroud'])
+    fill_rect(x, y, 30, 25, color_palette['HomeBackground'])
   if important:
-    draw_string("{:0>2}".format(day), x+5, y+3, color_palette['AccentText'], color_palette['HomeBackgroud'])
+    draw_string("{:0>2}".format(day), x+5, y+3, color_palette['AccentText'], color_palette['HomeBackground'])
   else:
-    draw_string("{:0>2}".format(day), x+5, y+3, color_palette['PrimaryText'], color_palette['HomeBackgroud'])
+    draw_string("{:0>2}".format(day), x+5, y+3, color_palette['PrimaryText'], color_palette['HomeBackground'])
 
 
 def draw_mounth(mounth, years, selected=0):
   fill_rect(0, 0, 320, 222, color_palette['HomeBackgroud'])
-  draw_string("{:^20}".format(mounth_names[mounth]+" "+str(years)), 60, 0, color_palette['PrimaryText'], color_palette['HomeBackgroud'])
+  draw_string("{:^20}".format(mounth_names[mounth]+" "+str(years)), 60, 0, color_palette['PrimaryText'], color_palette['HomeBackground'])
   for i in range(8):
     fill_rect(40+i*33, 20, 3, 175, color_palette['PrimaryText'])
   for i in range(7):
-    draw_string(["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"][i],48+i*33,23,(200,)*3, color_palette['HomeBackgroud'])
+    draw_string(["Lu", "Ma", "Me", "Je", "Ve", "Sa", "Di"][i],48+i*33,23,(200,)*3, color_palette['HomeBackground'])
   for i in range(get_mounth_lenght(mounth, years)):
     draw_day(i+1, mounth, years, (i+1)==selected)
 
