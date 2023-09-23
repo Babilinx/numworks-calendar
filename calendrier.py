@@ -1,6 +1,7 @@
 from kandinsky import *
 from ion import *
 from time import *
+import micropython as mp
 
 # Version : v1.0
 
@@ -11,6 +12,9 @@ C2 = (255, 100, 0)       #(255,0,255) #(255,100,0)
 drawed = False
 
 mounth_names = [None, "Janvier", "Fe"+chr(769)+"vrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aou"+chr(770)+"t", "Septembre", "Octobre", "Novembre", "De"+chr(769)+"cembre"]
+
+# Exit using KEY_ONOFF to allow the usage of KEY_BACK
+mp.kbd_intr(KEY_ONOFF)
 
 def get_week_day(day,mounth,years):
   c = (14-mounth)//12
