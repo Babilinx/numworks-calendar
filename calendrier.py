@@ -111,7 +111,7 @@ def button(self, x, y, text, selected=False, size_factor=1):
   draw_line(x, y-1, x+x_size, y-1, 'black' if not setected else color_palette['AccentText'])
   draw_line(x, y+y_size+1, x+x_size, y+y_size+1, 'black' if not setected else color_palette['AccentText'])
   draw_line(x-1, y, x-1, y+y_size, 'black' if not setected else color_palette['AccentText'])
-  draw_line(x+x_size+1, y, x+x_size+1, y+y_size, 'black' if not setected else color_palette['AccentText']
+  draw_line(x+x_size+1, y, x+x_size+1, y+y_size, 'black' if not setected else color_palette['AccentText'])
   
 
 def get_today():
@@ -172,6 +172,5 @@ def main():
     sleep(0.1)
 
 
-if __name__ == '__main__':
-  Window() = w
-  main()
+w = Window()
+main()
