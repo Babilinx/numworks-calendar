@@ -15,6 +15,18 @@ color_palette = get_palette()
 # Exit using KEY_ONOFF to allow the usage of KEY_BACK
 mp.kbd_intr(KEY_ONOFF)
 
+events=[
+("Pre"+chr(769)+"sidentielle 2022", "24/4/2022"),
+("Nouvelle anne"+chr(769)+"e", "1/1/****"),
+("Fe"+chr(770)+"te du travail", "1/5/****"),
+("Paix 1945", "5/5/****"),
+("Jour des morts", "1/11/****"),
+("Armistice", "11/11/****"),
+("Noe"+chr(776)+"l", "25/12/****"),
+# Add your own date!
+#("Name", "da/mo/year"),
+# ** or ***** for any day/mounth/year
+]
 
 def get_week_day(day,mounth,years):
   c = (14-mounth)//12
@@ -68,16 +80,50 @@ def draw_mounth(mounth, years, selected=0):
     draw_day(i+1, mounth, years, (i+1)==selected)
 
 
+class Window():
+  def pop_up(self):
+    # Draw the countours of the window
+    draw_line(60, 59, 240, 59, 'black')
+    draw_line(60, 201, 240, 201, 'black')
+    draw_line(19, 80, 19, 180, 'black')
+    draw_line(261, 80, 261, 180, 'black')
+    draw_circle(59, 79, 20, 'black')
+    draw_circle(59, 181, 20, 'black')
+    draw_circle(241, 79, 20, 'black')
+    draw_circle(241, 181, 20, 'black')
+    # Draw the background of the window
+    fill_rect(60, 60, 180, 140, color_palette['HomeBackground'])
+    fill_rect(60, 80, 100, 20, color_palette['HomeBackground'])
+    fill_rect(240, 80, 100, 20, color_palette['HomeBackground'])
+    fill_circle(60, 80, 20, color_palette['HomeBackground'])
+    fill_circle(60, 180, 20, color_palette['HomeBackground'])
+    fill_circle(240, 80, 20, color_palette['HomeBackground'])
+    fill_circle(240, 180, 20, color_palette['HomeBackground'])
+
+def button(self, x, y, text, selected=False, size_factor=1):
+  """
+  selected: If true, contours and text colors become color_palette['AccentText'].
+  size_factor (float): The default button size is multiplied by it.
+  """
+  x_size = 60*size_factor
+  y_size = 20*size_factor
+  # Draw_the countours of the button
+  draw_line(x, y-1, x+x_size, y-1, 'black' if not setected else color_palette['AccentText'])
+  draw_line(x, y+y_size+1, x+x_size, y+y_size+1, 'black' if not setected else color_palette['AccentText'])
+  draw_line(x-1, y, x-1, y+y_size, 'black' if not setected else color_palette['AccentText'])
+  draw_line(x+x_size+1, y, x+x_size+1, y+y_size, 'black' if not setected else color_palette['AccentText']
+  
+
 def get_today():
     year, mounth, day, hour, minutes, seconds, a, b = localtime()
     return (int(day), int(mounth), int(year))
 
 
-def start():
+def main():
   selected, mounth, years = get_today()
   draw_mounth(mounth, years, selected)
   while not keydown(KEY_ONOFF):
-    while not (keydown(KEY_RIGHT) or keydown(KEY_LEFT) or keydown(KEY_UP) or keydown(KEY_DOWN) or keydown(KEY_EXE) or keydown(KEY_HOME)):
+    while not (keydown(KEY_RIGHT) or keydown(KEY_LEFT) or keydown(KEY_UP) or keydown(KEY_DOWN) or keydown(KEY_OK) or keydown(KEY_HOME)):
       pass
 
     if keydown(KEY_UP):
@@ -100,6 +146,12 @@ def start():
       selected, mounth, years = get_today()
       draw_mounth(mounth, years, selected)
 
+    if keydown(KEY_OK):
+      w.pop_up()
+      while not keydown(KEY_BACK):
+        pass
+      draw_mounth(mounth, years, selected)
+
     if selected > get_mounth_lenght(mounth, years):
       selected %= get_mounth_lenght(mounth, years)
       mounth += 1
@@ -119,27 +171,7 @@ def start():
     draw_day(selected, mounth, years, True)
     sleep(0.1)
 
-#Pour les interresses, les "+chr(xxx)+"
-#permette d'avoir des accents.
-#"e"+chr(768) => accent aigu
-#"e"+chr(769) => accent grave
-#+770 => accent circonflexe
-#776 => tremas
 
-# == Vous pouvez changer les  ==
-# == couleurs au tout debut ! ==
-
-events=[
-("Pre"+chr(769)+"sidentielle 2022", "24/4/2022"),
-("Nouvelle anne"+chr(769)+"e", "1/1/****"),
-("Fe"+chr(770)+"te du travail", "1/5/****"),
-("Paix 1945", "5/5/****"),
-("Jour des morts", "1/11/****"),
-("Armistice", "11/11/****"),
-("Noe"+chr(776)+"l", "25/12/****"),
-# Add your own date!
-#("Name", "da/mo/year"),
-# ** or ***** for any day/mounth/year
-
-]
-start()
+if __name__ == '__main__':
+  Window() = w
+  main()
