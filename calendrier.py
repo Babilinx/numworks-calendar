@@ -101,13 +101,14 @@ class Window():
     x_size = 60*size_factor
     y_size = 20*size_factor
     # Draw_the countours of the button
-    draw_line(x, y-1, x+x_size, y-1, 'black' if not setected else color_palette['AccentText'])
-    draw_line(x, y+y_size+1, x+x_size, y+y_size+1, 'black' if not setected else color_palette['AccentText'])
-    draw_line(x-1, y, x-1, y+y_size, 'black' if not setected else color_palette['AccentText'])
-    draw_line(x+x_size+1, y, x+x_size+1, y+y_size, 'black' if not setected else color_palette['AccentText'])
+    draw_line(x-1, y-1, x+x_size+2, y-1, 'black' if not selected else color_palette['AccentText'])
+    draw_line(x-1, y+y_size+1, x+x_size+2, y+y_size+1, 'black' if not selected else color_palette['AccentText'])
+    draw_line(x-1, y-1, x-1, y+y_size+2, 'black' if not selected else color_palette['AccentText'])
+    draw_line(x+x_size+1, y, x+x_size+1, y+y_size+1, 'black' if not selected else color_palette['AccentText'])
   
   def ask(self, title):
     fill_rect(0, 0, 320, 222, 'blue')
+    self.button(10, 10, "nop")
     while not keydown(KEY_OK):
       pass
     return True
