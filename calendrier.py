@@ -107,11 +107,36 @@ class Window():
     draw_line(x+x_size+1, y, x+x_size+1, y+y_size+1, 'black' if not selected else color_palette['AccentText'])
   
   def ask(self, title):
-    fill_rect(0, 0, 320, 222, 'blue')
-    self.button(10, 10, "nop")
-    while not keydown(KEY_OK):
-      pass
-    return True
+    fill_rect(0, 0, 320, 222, color_scheme['HomeBackground'])
+    self.button(10, 100, 'Yes')
+    self.button(290, 100, 'No')
+    buttons = {
+      'Yes': [0, 0]
+      'No': [1, 0]
+      'Selected': [1, 0]
+      'Max': [1, 0]
+    }
+
+    while True:
+      while not (keydown(KEY_LEFT) or keydown(KEY_RIGHT) or keydown(KEY_OK) or keydown(KEY_BACK)):
+        pass
+      x, y = buttons['Selected']
+      x_max, y_max = buttons['Max']
+
+      if keydown(KEY_LEFT):
+        x -= 1 if x - 1 >= 0 else 0
+
+      elif keydown(KEY_RIGHT):
+        x += 1 if x + 1 <= x_max else 0
+
+      if keydown(KEY_OK):
+        return True if buttons['Selected'] == buttons['Yes'] else False
+
+      if keydown(KEY_BACK):
+        return False
+
+      self.button(10, 100, 'Yes', selected=True if buttons['Selected'] == buttons['Yes'] else False)
+      self.button(290, 100, 'No', selected=True if buttons['Selected'] == buttons['No'] else False)
 
 
 def get_today():
