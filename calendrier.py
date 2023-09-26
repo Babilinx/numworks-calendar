@@ -2,6 +2,7 @@ from kandinsky import *
 from ion import *
 from time import *
 import micropython as mp
+from microtext import *
 
 # Version : v1.0
 
@@ -81,38 +82,36 @@ def draw_mounth(mounth, years, selected=0):
 
 
 class Window():
-  def pop_up(self):
+  def pop_up(self, title):
     # Draw the countours of the window
-    draw_line(60, 59, 240, 59, 'black')
-    draw_line(60, 201, 240, 201, 'black')
-    draw_line(19, 80, 19, 180, 'black')
-    draw_line(261, 80, 261, 180, 'black')
-    draw_circle(59, 79, 20, 'black')
-    draw_circle(59, 181, 20, 'black')
-    draw_circle(241, 79, 20, 'black')
-    draw_circle(241, 181, 20, 'black')
+    draw_line(39, 19, 274, 19, 'black')
+    draw_line(39, 19, 39, 231, 'black')
+    draw_line(274, 19, 274, 231, 'black')
     # Draw the background of the window
-    fill_rect(60, 60, 180, 140, color_palette['HomeBackground'])
-    fill_rect(60, 80, 100, 20, color_palette['HomeBackground'])
-    fill_rect(240, 80, 100, 20, color_palette['HomeBackground'])
-    fill_circle(60, 80, 20, color_palette['HomeBackground'])
-    fill_circle(60, 180, 20, color_palette['HomeBackground'])
-    fill_circle(240, 80, 20, color_palette['HomeBackground'])
-    fill_circle(240, 180, 20, color_palette['HomeBackground'])
+    fill_rect(40, 30, 234, 200, color_palette['HomeBackground'])
+    fill_rect(40, 20, 234, 10, color_palette['Toolbar'])
 
-def button(self, x, y, text, selected=False, size_factor=1):
-  """
-  selected: If true, contours and text colors become color_palette['AccentText'].
-  size_factor (float): The default button size is multiplied by it.
-  """
-  x_size = 60*size_factor
-  y_size = 20*size_factor
-  # Draw_the countours of the button
-  draw_line(x, y-1, x+x_size, y-1, 'black' if not setected else color_palette['AccentText'])
-  draw_line(x, y+y_size+1, x+x_size, y+y_size+1, 'black' if not setected else color_palette['AccentText'])
-  draw_line(x-1, y, x-1, y+y_size, 'black' if not setected else color_palette['AccentText'])
-  draw_line(x+x_size+1, y, x+x_size+1, y+y_size, 'black' if not setected else color_palette['AccentText'])
+    dms(title, 45, 21)
+
+  def button(self, x, y, text, selected=False, size_factor=1):
+    """
+    selected: If true, contours and text colors become color_palette['AccentText'].
+    size_factor (float): The default button size is multiplied by it.
+    """
+    x_size = 60*size_factor
+    y_size = 20*size_factor
+    # Draw_the countours of the button
+    draw_line(x, y-1, x+x_size, y-1, 'black' if not setected else color_palette['AccentText'])
+    draw_line(x, y+y_size+1, x+x_size, y+y_size+1, 'black' if not setected else color_palette['AccentText'])
+    draw_line(x-1, y, x-1, y+y_size, 'black' if not setected else color_palette['AccentText'])
+    draw_line(x+x_size+1, y, x+x_size+1, y+y_size, 'black' if not setected else color_palette['AccentText'])
   
+  def ask(self, title):
+    fill_rect(0, 0, 320, 222, 'blue')
+    while not keydown(KEY_OK):
+      pass
+    return True
+
 
 def get_today():
     year, mounth, day, hour, minutes, seconds, a, b = localtime()
@@ -120,10 +119,11 @@ def get_today():
 
 
 def main():
+  quit = False
   selected, mounth, years = get_today()
   draw_mounth(mounth, years, selected)
-  while not keydown(KEY_ONOFF):
-    while not (keydown(KEY_RIGHT) or keydown(KEY_LEFT) or keydown(KEY_UP) or keydown(KEY_DOWN) or keydown(KEY_OK) or keydown(KEY_HOME)):
+  while not quit:
+    while not (keydown(KEY_RIGHT) or keydown(KEY_LEFT) or keydown(KEY_UP) or keydown(KEY_DOWN) or keydown(KEY_OK) or keydown(KEY_HOME) or keydown(KEY_BACK)):
       pass
 
     if keydown(KEY_UP):
@@ -147,10 +147,14 @@ def main():
       draw_mounth(mounth, years, selected)
 
     if keydown(KEY_OK):
-      w.pop_up()
+      w.pop_up("Events on {}/{}/{}".format(selected, mounth, years))
       while not keydown(KEY_BACK):
         pass
       draw_mounth(mounth, years, selected)
+
+    if keydown(KEY_BACK):
+      quit = w.ask("Quit")
+      break
 
     if selected > get_mounth_lenght(mounth, years):
       selected %= get_mounth_lenght(mounth, years)
