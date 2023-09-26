@@ -107,7 +107,7 @@ class Window():
     draw_line(x+x_size+1, y, x+x_size+1, y+y_size+1, 'black' if not selected else color_palette['AccentText'])
   
   def ask(self, title):
-    fill_rect(0, 0, 320, 222, color_scheme['HomeBackground'])
+    fill_rect(0, 0, 320, 222, color_palette['HomeBackground'])
     self.button(10, 100, 'Yes')
     self.button(290, 100, 'No')
     buttons = {
