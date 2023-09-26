@@ -111,10 +111,10 @@ class Window():
     self.button(10, 100, 'Yes')
     self.button(290, 100, 'No')
     buttons = {
-      'Yes': [0, 0]
-      'No': [1, 0]
-      'Selected': [1, 0]
-      'Max': [1, 0]
+      'Yes': [0, 0],
+      'No': [1, 0],
+      'Selected': [1, 0],
+      'Max': [1, 0],
     }
 
     while True:
